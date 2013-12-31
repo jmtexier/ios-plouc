@@ -30,8 +30,9 @@
 		2E36CCDB1870C27B008D4166 /* Card-Deck.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E36CCDA1870C27B008D4166 /* Card-Deck.png */; };
 		2E550E4F1871AA4800F27977 /* NWMPileModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E550E4E1871AA4800F27977 /* NWMPileModel.m */; };
 		2E550E551871CD4700F27977 /* SplashScreen.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2E550E541871CD4700F27977 /* SplashScreen.jpg */; };
-		2E7E714B187182A7000DC5A9 /* NWMHandModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E7E714A187182A7000DC5A9 /* NWMHandModel.m */; };
+		2E7E714B187182A7000DC5A9 /* NWMPlayerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E7E714A187182A7000DC5A9 /* NWMPlayerModel.m */; };
 		2E7E714E187189BE000DC5A9 /* NWMCardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E7E714D187189BE000DC5A9 /* NWMCardModel.m */; };
+		2EE734701873361600687DC7 /* NWMGameModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EE7346F1873361600687DC7 /* NWMGameModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,10 +78,12 @@
 		2E550E4D1871AA4800F27977 /* NWMPileModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWMPileModel.h; sourceTree = "<group>"; };
 		2E550E4E1871AA4800F27977 /* NWMPileModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWMPileModel.m; sourceTree = "<group>"; };
 		2E550E541871CD4700F27977 /* SplashScreen.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = SplashScreen.jpg; sourceTree = "<group>"; };
-		2E7E7149187182A7000DC5A9 /* NWMHandModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWMHandModel.h; sourceTree = "<group>"; };
-		2E7E714A187182A7000DC5A9 /* NWMHandModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWMHandModel.m; sourceTree = "<group>"; };
+		2E7E7149187182A7000DC5A9 /* NWMPlayerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWMPlayerModel.h; sourceTree = "<group>"; };
+		2E7E714A187182A7000DC5A9 /* NWMPlayerModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWMPlayerModel.m; sourceTree = "<group>"; };
 		2E7E714C187189BE000DC5A9 /* NWMCardModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWMCardModel.h; sourceTree = "<group>"; };
 		2E7E714D187189BE000DC5A9 /* NWMCardModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWMCardModel.m; sourceTree = "<group>"; };
+		2EE7346E1873361600687DC7 /* NWMGameModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWMGameModel.h; sourceTree = "<group>"; };
+		2EE7346F1873361600687DC7 /* NWMGameModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWMGameModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -202,12 +205,14 @@
 		2E36CCBB187040AE008D4166 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				2E7E7149187182A7000DC5A9 /* NWMHandModel.h */,
-				2E7E714A187182A7000DC5A9 /* NWMHandModel.m */,
+				2E7E7149187182A7000DC5A9 /* NWMPlayerModel.h */,
+				2E7E714A187182A7000DC5A9 /* NWMPlayerModel.m */,
 				2E7E714C187189BE000DC5A9 /* NWMCardModel.h */,
 				2E7E714D187189BE000DC5A9 /* NWMCardModel.m */,
 				2E550E4D1871AA4800F27977 /* NWMPileModel.h */,
 				2E550E4E1871AA4800F27977 /* NWMPileModel.m */,
+				2EE7346E1873361600687DC7 /* NWMGameModel.h */,
+				2EE7346F1873361600687DC7 /* NWMGameModel.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -324,13 +329,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				2E36CCCE18708C69008D4166 /* NWMHelpViewController.m in Sources */,
-				2E7E714B187182A7000DC5A9 /* NWMHandModel.m in Sources */,
+				2E7E714B187182A7000DC5A9 /* NWMPlayerModel.m in Sources */,
 				2E550E4F1871AA4800F27977 /* NWMPileModel.m in Sources */,
 				2E36CCB318703B59008D4166 /* NWMMenuViewController.m in Sources */,
 				2E36CC8F18703B0A008D4166 /* main.m in Sources */,
 				2E36CCC418705EDD008D4166 /* NWMOptionsViewController.m in Sources */,
 				2E36CCD31870B15A008D4166 /* NWMBoardViewController.m in Sources */,
 				2E7E714E187189BE000DC5A9 /* NWMCardModel.m in Sources */,
+				2EE734701873361600687DC7 /* NWMGameModel.m in Sources */,
 				2E36CC9318703B0A008D4166 /* NWMAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

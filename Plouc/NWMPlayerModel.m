@@ -1,20 +1,20 @@
 //
-//  NWMHandModel.m
+//  NWMPlayerModel.m
 //  Plouc
 //
 //  Created by Jean-Michel TEXIER on 30/12/13.
 //  Copyright (c) 2013 Jean-Michel TEXIER. All rights reserved.
 //
 
-#import "NWMHandModel.h"
+#import "NWMPlayerModel.h"
 
-@interface NWMHandModel ()
+@interface NWMPlayerModel ()
 
 @property (strong, nonatomic) NSMutableArray *cards;
 
 @end
 
-@implementation NWMHandModel
+@implementation NWMPlayerModel
 
 -(id)init
 {
@@ -24,7 +24,7 @@
     return self;
 }
 
-- (int)count
+- (int)cardCount
 {
     return [self.cards count];
 }
@@ -34,11 +34,6 @@
     [self.cards addObject:card];
 }
 
-- (NWMCardModel *)getCardAtIndex:(NSUInteger)index
-{
-    return self.cards[index];
-}
-
 - (void)removeCardAtIndex:(NSUInteger)index
 {
     [self.cards removeObjectAtIndex:index];
@@ -46,6 +41,11 @@
 
 - (void)swapCardAtIndex:(NSUInteger)from withCardAtIndex:(NSUInteger)to {
     [self.cards exchangeObjectAtIndex:from withObjectAtIndex:to];
+}
+
+- (NWMCardModel *)getCardAtIndex:(NSUInteger)index
+{
+    return self.cards[index];
 }
 
 - (void)sort
@@ -66,6 +66,17 @@
                 return NSOrderedSame;
         }
     }];
+}
+
+- (BOOL)canPlayOnCard:(NWMCardModel *)topCard
+{
+    // play can play if at least one of his(her) card can be stacked on the top card
+    for(NWMCardModel *card in _cards) {
+        if ([card canBeStackedOn:topCard])
+            return YES;
+    }
+
+    return NO;
 }
 
 @end

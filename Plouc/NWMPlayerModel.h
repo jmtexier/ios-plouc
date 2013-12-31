@@ -1,5 +1,5 @@
 //
-//  NWMHandModel.h
+//  NWMPlayerModel.h
 //  Plouc
 //
 //  Created by Jean-Michel TEXIER on 30/12/13.
@@ -9,18 +9,17 @@
 #import <Foundation/Foundation.h>
 #import "NWMCardModel.h"
 
-@interface NWMHandModel : NSObject
+@interface NWMPlayerModel : NSObject
 
-@property (readonly) int count;
+@property (readonly) int cardCount;
 
 - (void)addCard:(NWMCardModel *)card;
-
+- (void)removeCardAtIndex:(NSUInteger)index;
+- (void)swapCardAtIndex:(NSUInteger)from withCardAtIndex:(NSUInteger)to;
 - (NWMCardModel *)getCardAtIndex:(NSUInteger)index;
 
-- (void)removeCardAtIndex:(NSUInteger)index;
-
-- (void)swapCardAtIndex:(NSUInteger)from withCardAtIndex:(NSUInteger)to;
-
 - (void)sort;
+
+- (BOOL)canPlayOnCard:(NWMCardModel *)topCard;
 
 @end

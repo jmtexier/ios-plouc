@@ -7,8 +7,9 @@
 //
 
 #import "NWMBoardViewController.h"
+#import "NWMGameModel.h"
 #import "NWMPileModel.h"
-#import "NWMHandModel.h"
+#import "NWMPlayerModel.h"
 #import "NWMCardModel.h"
 
 @interface NWMBoardViewController ()
@@ -16,22 +17,12 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *playerCollection;
 @property (weak, nonatomic) IBOutlet UILabel *playerLabel;
 
-@property BOOL isDragging;
-@property (nonatomic, retain) UICollectionViewCell *draggingCell;
-@property (nonatomic, retain) NSIndexPath* draggingIndexPath;
-
-@property (weak, nonatomic) IBOutlet UILabel *computerLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *computerCard;
+@property (weak, nonatomic) IBOutlet UILabel *computerLabel;
 
 @property (weak, nonatomic) IBOutlet UIButton *pileButton;
-@property (weak, nonatomic) IBOutlet UILabel *pileLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *pileCardImage;
-
-
-@property NWMPileModel *pile;
-@property NWMHandModel *playerHand;
-@property NWMHandModel *computerHand;
-@property NWMCardModel *currentCard;
+@property (weak, nonatomic) IBOutlet UILabel *pileLabel;
 
 @end
 
@@ -41,17 +32,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // create a new pile of cards
-        self.pile = [[NWMPileModel alloc] init];
-
-        // deal 5 cards to player and computer
-        self.playerHand = [[NWMHandModel alloc] init];
-        self.computerHand = [[NWMHandModel alloc] init];
-        for (NSUInteger index = 0; index < 5; ++index) {
-            [self.playerHand addCard:[self.pile drawCard]];
-            [self.computerHand addCard:[self.pile drawCard]];
-        }
-        [self.playerHand sort];
+        _game = [[NWMGameModel alloc] init];
     }
 
     return self;
@@ -63,105 +44,23 @@
 
     // set computer's back card
     self.computerCard.image = [NWMCardModel getJokerImage];
-    [self updateHandCountLabel:self.computerLabel withCount:self.computerHand.count];
+    [self updateHandCountLabel:self.computerLabel withCount:self.game.computer.cardCount];
     
     // set pile's back card and draw first card
     [self.pileButton setImage:[NWMCardModel getBackImage] forState:UIControlStateNormal];
-    [self drawCard];
+    [self.pileCardImage setImage:[self.game.pile.currentCard getImage]];
 
     // initialize player's collection view
     [self.playerCollection setUserInteractionEnabled:YES];
     self.playerCollection.allowsSelection = YES;
-    [self updateHandCountLabel:self.playerLabel withCount:self.playerHand.count];
+    [self updateHandCountLabel:self.playerLabel withCount:self.game.player.cardCount];
 
+    // implement swipe gesture to allow player to play one of his(her) cards
     UISwipeGestureRecognizer *swipeCell = [[UISwipeGestureRecognizer alloc] initWithTarget:self
                                                                                     action:@selector(onCellSwipped:)];
     [swipeCell setDirection:UISwipeGestureRecognizerDirectionUp];
     swipeCell.numberOfTouchesRequired = 1;
     [self.playerCollection addGestureRecognizer:swipeCell];
-
-//    UIPanGestureRecognizer *panCell = [[UIPanGestureRecognizer alloc] initWithTarget:self
-//                                                                              action:@selector(onCellDragged:)];
-//    panCell.delegate = self;
-//    [self.playerCollection addGestureRecognizer:panCell];
-}
-
-- (BOOL) gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
-shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
-    return YES;
-}
-
-- (void)onCellDragged:(UIPanGestureRecognizer *)gestureRecognizer {
-    CGPoint p = [gestureRecognizer locationInView:self.playerCollection];
-    NSIndexPath *indexPath = [self.playerCollection indexPathForItemAtPoint:p];
-
-    switch(gestureRecognizer.state) {
-            
-        case UIGestureRecognizerStateBegan:
-            if (gestureRecognizer.numberOfTouches != 2) {
-                gestureRecognizer.cancelsTouchesInView = NO;
-                gestureRecognizer.enabled = NO;
-                gestureRecognizer.enabled = YES;
-                return;
-            }
-            NSLog(@"Drag Started");
-            if (indexPath == nil) {
-                return;
-            } else {
-                self.isDragging = YES;
-                UICollectionViewCell *cell = [self.playerCollection cellForItemAtIndexPath:indexPath];
-
-                [cell setHidden:NO];
-                [cell setHighlighted:NO];
-                NSData* viewCopyData = [NSKeyedArchiver archivedDataWithRootObject:cell];
-                self.draggingCell = [NSKeyedUnarchiver unarchiveObjectWithData:viewCopyData];
-                self.draggingIndexPath = indexPath;
-                cell.alpha = 0.4;
-            }
-            break;
-            
-        case UIGestureRecognizerStateChanged:
-            if (self.isDragging) {
-                // translate cell
-                CGPoint translation = [gestureRecognizer translationInView:[self.draggingCell superview]];
-                [self.draggingCell setCenter:CGPointMake([self.draggingCell center].x + translation.x,
-                                                         [self.draggingCell center].y + translation.y)];
-                [gestureRecognizer setTranslation:CGPointZero inView:[self.draggingCell superview]];
-            }
-            break;
-            
-        case UIGestureRecognizerStateEnded:
-        case UIGestureRecognizerStateCancelled:
-        case UIGestureRecognizerStateFailed:
-            NSLog(@"Drag Stopped");
-            self.isDragging = NO;
-            if (self.draggingCell) {
-                // restore original cell alpha
-                UICollectionViewCell *cell = [self.playerCollection cellForItemAtIndexPath:self.draggingIndexPath];
-                cell.alpha = 1;
-
-                // remove dragged card
-                [self.draggingCell removeFromSuperview];
-                self.draggingCell = nil;
-
-                // swap cards in hand if user drop card in the collection
-                if (indexPath !=  nil) {
-                    NSUInteger from = self.draggingIndexPath.item;
-                    NSUInteger to = indexPath.item;
-                    [self.playerHand swapCardAtIndex:from withCardAtIndex:to];
-
-                     // redraw hand
-                    [self.playerCollection reloadData];
-                }
-                
-            }
-            self.draggingIndexPath = nil;
-            break;
-            
-        default:
-            break;
-            
-    }
 }
 
 - (void)onCellSwipped:(UISwipeGestureRecognizer *)gestureRecognizer {
@@ -169,26 +68,14 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     if (gestureRecognizer.state != UIGestureRecognizerStateEnded)
         return;
 
+    // ensure swipe is done on a cell
     CGPoint p = [gestureRecognizer locationInView:self.playerCollection];
     NSIndexPath *indexPath = [self.playerCollection indexPathForItemAtPoint:p];
-    if (indexPath == nil){
-        NSLog(@"couldn't find index path");
+    if (indexPath == nil)
         return;
-    } else {
-        NSUInteger index = indexPath.item;
-        NSLog(@"Card %d swipped", index);
-        NWMCardModel *card = [self.playerHand getCardAtIndex:index];
-        if ([card canBeStackedOn:self.currentCard]) {
-            // drop card on pile
-            [self.playerHand removeCardAtIndex:index];
-            self.currentCard = card;
-            
-            // redraw
-            self.pileCardImage.image = [self.currentCard getImage];
-            [self.playerCollection deleteItemsAtIndexPaths:@[indexPath]];
-            [self updateHandCountLabel:self.playerLabel withCount:self.playerHand.count];
-        }
-    }
+
+    // play card corresponding to cell (if possible)
+    [self playCard:indexPath];
 }
 
 - (void)didReceiveMemoryWarning
@@ -198,20 +85,6 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 
 - (IBAction)pileButton:(id)sender {
     [self drawCard];
-}
-
-- (void)drawCard
-{
-    NSUInteger count = self.pile.count;
-    if (count > 0) {
-        self.currentCard = [self.pile drawCard];
-        self.pileCardImage.image = [self.currentCard getImage];
-        count--;
-        if (count == 0) {
-            self.pileButton.enabled = NO;
-        }
-       [self updateHandCountLabel:self.pileLabel withCount:count];
-    }
 }
 
 - (void)updateHandCountLabel:(UILabel *)label withCount:(NSUInteger)count
@@ -234,13 +107,52 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     }
 }
 
+#pragma mark - Game logic
+
+- (void)playCard:(NSIndexPath *)indexPath
+{
+    NSUInteger index = indexPath.item;
+    NWMCardModel *card = [self.game.player getCardAtIndex:index];
+    if ([card canBeStackedOn:self.game.currentCard]) {
+        // play card
+        [self.game playCard:index];
+        self.pileCardImage.image = [self.game.currentCard getImage];
+        
+        // redraw player's hand (after 'playCard' turn has changed, so we check if it's computer's turn)
+        if (self.game.currentPlayer == self.game.computer) {
+            [self.playerCollection deleteItemsAtIndexPaths:@[indexPath]];
+            [self updateHandCountLabel:self.playerLabel withCount:self.game.player.cardCount];
+        } else {
+            // computer has played
+            [self updateHandCountLabel:self.computerLabel withCount:self.game.computer.cardCount];
+        }
+    } else {
+        // display sound or do something...
+    }
+}
+
+- (void)drawCard
+{
+    // draw card and skip turn
+    [self.game drawCard];
+
+    // redraw
+    if (self.game.currentPlayer == self.game.computer) {
+        [self updateHandCountLabel:self.computerLabel withCount:self.game.computer.cardCount];
+    } else {
+        [self.playerCollection reloadData];
+        [self updateHandCountLabel:self.playerLabel withCount:self.game.player.cardCount];
+    }
+
+    // skip turn
+    [self.game skipTurn];
+}
+
 #pragma mark - UICollectionViewDataSource implementation
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    NSLog(@"Hand count requested");
-    
-    return self.playerHand.count;
+    return self.game.player.cardCount;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -250,7 +162,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     [collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"card" ];
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"card" forIndexPath:indexPath];
 
-    UIImage *image = [[self.playerHand getCardAtIndex:indexPath.item] getImage];
+    UIImage *image = [[self.game.player getCardAtIndex:indexPath.item] getImage];
     UIImageView *view = [[UIImageView alloc] initWithImage:image];
     
     view.frame = CGRectMake(0, 0, 55, 73);

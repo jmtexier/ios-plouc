@@ -11,7 +11,7 @@
 
 @interface NWMPileModel ()
 
-@property (strong, nonatomic) NSMutableArray *stack;
+@property NSMutableArray *stack;
 
 @end
 
@@ -19,18 +19,23 @@
 
 - (id)init
 {
-    // initialize pile with all cards
-    if (self = [super init]) {
+    self = [super init];
+    if (self) {
+        // initialize pile with all possible cards
         self.stack = [@[] mutableCopy];
         for (NSUInteger color = Hearts; color <=Clubs; ++color) {
             for (NSUInteger value = Ace; value <= King; ++value) {
                 [self.stack addObject:[[NWMCardModel alloc] initWithColor:color andValue:value]];
             }
         }
+
+        // shuffle once
+        [self shuffle];
+        
+        // do not draw card at the very beginning
+        _currentCard = nil;
     }
-    // shuffle once
-    [self shuffle];
-    
+
     return self;
 }
 
@@ -45,6 +50,11 @@
     [self.stack removeLastObject];
 
     return card;
+}
+
+- (void)playCard:(NWMCardModel *)card
+{
+    _currentCard = card;
 }
 
 - (void)shuffle

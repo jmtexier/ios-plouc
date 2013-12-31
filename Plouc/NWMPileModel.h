@@ -12,8 +12,11 @@
 @interface NWMPileModel : NSObject
 
 @property (readonly) int count;
+@property (readonly) NWMCardModel *currentCard;
 
 - (NWMCardModel *)drawCard;
+
+- (void)playCard:(NWMCardModel *)card;
 
 - (void)shuffle;
 

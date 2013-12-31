@@ -45,7 +45,8 @@ typedef NS_ENUM(NSUInteger, CardValue) {
 
 @property (readonly) BOOL isAttack;
 @property (readonly) BOOL isChainable;
-@property (readonly) BOOL isColorIndependent;
 @property (readonly) NSUInteger attackCost;
+
+- (BOOL)canBeStackedOn:(NWMCardModel *)card;
 
 @end

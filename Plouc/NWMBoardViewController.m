@@ -13,15 +13,15 @@
 
 @interface NWMBoardViewController ()
 
-@property (weak, nonatomic) IBOutlet UILabel *playerLabel;
 @property (weak, nonatomic) IBOutlet UICollectionView *playerCollection;
+@property (weak, nonatomic) IBOutlet UILabel *playerLabel;
 
 @property (weak, nonatomic) IBOutlet UILabel *computerLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *computerCard;
 
 @property (weak, nonatomic) IBOutlet UIButton *pileButton;
 @property (weak, nonatomic) IBOutlet UILabel *pileLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *lastCard;
+@property (weak, nonatomic) IBOutlet UIImageView *pileCardImage;
 
 
 @property NWMPileModel *pile;
@@ -67,6 +67,7 @@
 
     // initialize player's collection view
     [self.playerCollection setUserInteractionEnabled:YES];
+    self.playerCollection.allowsSelection = YES;
     [self updateCardsLabel:self.playerLabel withCount:self.playerHand.count];
 }
 
@@ -84,7 +85,7 @@
     NSUInteger count = self.pile.count;
     if (count > 0) {
         self.currentCard = [self.pile drawCard];
-        self.lastCard.image = [self.currentCard getImage];
+        self.pileCardImage.image = [self.currentCard getImage];
         count--;
         if (count == 0) {
             self.pileButton.enabled = NO;
@@ -141,7 +142,20 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"Card has been selected at index %d", indexPath.item);
+    NSUInteger index = indexPath.item;
+
+    NWMCardModel *card = [self.playerHand getCardAtIndex:index];
+
+    if ([card canBeStackedOn:self.currentCard]) {
+        // drop card on pile
+        [self.playerHand removeCardAtIndex:index];
+        self.currentCard = card;
+        
+        // redraw
+        self.pileCardImage.image = [self.currentCard getImage];
+        [self.playerCollection deleteItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:index inSection:0]]];
+        [self updateCardsLabel:self.playerLabel withCount:self.playerHand.count];
+    }
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath

@@ -88,9 +88,10 @@ static CGImageRef _deck;
     }
 }
 
-- (BOOL) isColorIndependent
+- (BOOL) canBeStackedOn:(NWMCardModel *)card
 {
-    return (self.value == Eight);
+    // check if current card can be stacked on another card
+    return (self.value == Eight || self.color == card.color || self.value == card.value);
 }
 
 - (NSUInteger) attackCost

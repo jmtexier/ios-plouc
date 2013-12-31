@@ -44,6 +44,10 @@
     [self.cards removeObjectAtIndex:index];
 }
 
+- (void)swapCardAtIndex:(NSUInteger)from withCardAtIndex:(NSUInteger)to {
+    [self.cards exchangeObjectAtIndex:from withObjectAtIndex:to];
+}
+
 - (void)sort
 {
     [self.cards sortUsingComparator:^(NWMCardModel *obj1, NWMCardModel *obj2) {

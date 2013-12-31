@@ -19,6 +19,8 @@
 
 - (void)removeCardAtIndex:(NSUInteger)index;
 
+- (void)swapCardAtIndex:(NSUInteger)from withCardAtIndex:(NSUInteger)to;
+
 - (void)sort;
 
 @end

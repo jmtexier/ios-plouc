@@ -16,6 +16,10 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *playerCollection;
 @property (weak, nonatomic) IBOutlet UILabel *playerLabel;
 
+@property BOOL isDragging;
+@property (nonatomic, retain) UICollectionViewCell *draggingCell;
+@property (nonatomic, retain) NSIndexPath* draggingIndexPath;
+
 @property (weak, nonatomic) IBOutlet UILabel *computerLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *computerCard;
 
@@ -43,7 +47,7 @@
         // deal 5 cards to player and computer
         self.playerHand = [[NWMHandModel alloc] init];
         self.computerHand = [[NWMHandModel alloc] init];
-        for (NSUInteger index = 0; index < 7; ++index) {
+        for (NSUInteger index = 0; index < 5; ++index) {
             [self.playerHand addCard:[self.pile drawCard]];
             [self.computerHand addCard:[self.pile drawCard]];
         }
@@ -75,9 +79,92 @@
     [swipeCell setDirection:UISwipeGestureRecognizerDirectionUp];
     swipeCell.numberOfTouchesRequired = 1;
     [self.playerCollection addGestureRecognizer:swipeCell];
+
+//    UIPanGestureRecognizer *panCell = [[UIPanGestureRecognizer alloc] initWithTarget:self
+//                                                                              action:@selector(onCellDragged:)];
+//    panCell.delegate = self;
+//    [self.playerCollection addGestureRecognizer:panCell];
 }
 
-- (void)onCellSwipped:(UIGestureRecognizer *)gestureRecognizer {
+- (BOOL) gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
+shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    return YES;
+}
+
+- (void)onCellDragged:(UIPanGestureRecognizer *)gestureRecognizer {
+    CGPoint p = [gestureRecognizer locationInView:self.playerCollection];
+    NSIndexPath *indexPath = [self.playerCollection indexPathForItemAtPoint:p];
+
+    switch(gestureRecognizer.state) {
+            
+        case UIGestureRecognizerStateBegan:
+            if (gestureRecognizer.numberOfTouches != 2) {
+                gestureRecognizer.cancelsTouchesInView = NO;
+                gestureRecognizer.enabled = NO;
+                gestureRecognizer.enabled = YES;
+                return;
+            }
+            NSLog(@"Drag Started");
+            if (indexPath == nil) {
+                return;
+            } else {
+                self.isDragging = YES;
+                UICollectionViewCell *cell = [self.playerCollection cellForItemAtIndexPath:indexPath];
+
+                [cell setHidden:NO];
+                [cell setHighlighted:NO];
+                NSData* viewCopyData = [NSKeyedArchiver archivedDataWithRootObject:cell];
+                self.draggingCell = [NSKeyedUnarchiver unarchiveObjectWithData:viewCopyData];
+                self.draggingIndexPath = indexPath;
+                cell.alpha = 0.4;
+            }
+            break;
+            
+        case UIGestureRecognizerStateChanged:
+            if (self.isDragging) {
+                // translate cell
+                CGPoint translation = [gestureRecognizer translationInView:[self.draggingCell superview]];
+                [self.draggingCell setCenter:CGPointMake([self.draggingCell center].x + translation.x,
+                                                         [self.draggingCell center].y + translation.y)];
+                [gestureRecognizer setTranslation:CGPointZero inView:[self.draggingCell superview]];
+            }
+            break;
+            
+        case UIGestureRecognizerStateEnded:
+        case UIGestureRecognizerStateCancelled:
+        case UIGestureRecognizerStateFailed:
+            NSLog(@"Drag Stopped");
+            self.isDragging = NO;
+            if (self.draggingCell) {
+                // restore original cell alpha
+                UICollectionViewCell *cell = [self.playerCollection cellForItemAtIndexPath:self.draggingIndexPath];
+                cell.alpha = 1;
+
+                // remove dragged card
+                [self.draggingCell removeFromSuperview];
+                self.draggingCell = nil;
+
+                // swap cards in hand if user drop card in the collection
+                if (indexPath !=  nil) {
+                    NSUInteger from = self.draggingIndexPath.item;
+                    NSUInteger to = indexPath.item;
+                    [self.playerHand swapCardAtIndex:from withCardAtIndex:to];
+
+                     // redraw hand
+                    [self.playerCollection reloadData];
+                }
+                
+            }
+            self.draggingIndexPath = nil;
+            break;
+            
+        default:
+            break;
+            
+    }
+}
+
+- (void)onCellSwipped:(UISwipeGestureRecognizer *)gestureRecognizer {
     // ensure gesture is done
     if (gestureRecognizer.state != UIGestureRecognizerStateEnded)
         return;
@@ -162,10 +249,13 @@
 
     [collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"card" ];
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"card" forIndexPath:indexPath];
+
     UIImage *image = [[self.playerHand getCardAtIndex:indexPath.item] getImage];
     UIImageView *view = [[UIImageView alloc] initWithImage:image];
+    
     view.frame = CGRectMake(0, 0, 55, 73);
     view.contentMode = UIViewContentModeScaleAspectFit;
+
     [cell.contentView addSubview:view];
     
     return cell;

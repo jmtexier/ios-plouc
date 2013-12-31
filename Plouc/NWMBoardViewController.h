@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NWMBoardViewController : UIViewController <UICollectionViewDelegate, UICollectionViewDataSource>
+@interface NWMBoardViewController : UIViewController <UICollectionViewDelegate, UICollectionViewDataSource, UIGestureRecognizerDelegate>
 
 @end

@@ -59,7 +59,7 @@
 
     // set computer's back card
     self.computerCard.image = [NWMCardModel getJokerImage];
-    [self updateCardsLabel:self.computerLabel withCount:self.computerHand.count];
+    [self updateHandCountLabel:self.computerLabel withCount:self.computerHand.count];
     
     // set pile's back card and draw first card
     [self.pileButton setImage:[NWMCardModel getBackImage] forState:UIControlStateNormal];
@@ -68,7 +68,40 @@
     // initialize player's collection view
     [self.playerCollection setUserInteractionEnabled:YES];
     self.playerCollection.allowsSelection = YES;
-    [self updateCardsLabel:self.playerLabel withCount:self.playerHand.count];
+    [self updateHandCountLabel:self.playerLabel withCount:self.playerHand.count];
+
+    UISwipeGestureRecognizer *swipeCell = [[UISwipeGestureRecognizer alloc] initWithTarget:self
+                                                                                    action:@selector(onCellSwipped:)];
+    [swipeCell setDirection:UISwipeGestureRecognizerDirectionUp];
+    swipeCell.numberOfTouchesRequired = 1;
+    [self.playerCollection addGestureRecognizer:swipeCell];
+}
+
+- (void)onCellSwipped:(UIGestureRecognizer *)gestureRecognizer {
+    // ensure gesture is done
+    if (gestureRecognizer.state != UIGestureRecognizerStateEnded)
+        return;
+
+    CGPoint p = [gestureRecognizer locationInView:self.playerCollection];
+    NSIndexPath *indexPath = [self.playerCollection indexPathForItemAtPoint:p];
+    if (indexPath == nil){
+        NSLog(@"couldn't find index path");
+        return;
+    } else {
+        NSUInteger index = indexPath.item;
+        NSLog(@"Card %d swipped", index);
+        NWMCardModel *card = [self.playerHand getCardAtIndex:index];
+        if ([card canBeStackedOn:self.currentCard]) {
+            // drop card on pile
+            [self.playerHand removeCardAtIndex:index];
+            self.currentCard = card;
+            
+            // redraw
+            self.pileCardImage.image = [self.currentCard getImage];
+            [self.playerCollection deleteItemsAtIndexPaths:@[indexPath]];
+            [self updateHandCountLabel:self.playerLabel withCount:self.playerHand.count];
+        }
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -90,11 +123,11 @@
         if (count == 0) {
             self.pileButton.enabled = NO;
         }
-       [self updateCardsLabel:self.pileLabel withCount:count];
+       [self updateHandCountLabel:self.pileLabel withCount:count];
     }
 }
 
-- (void)updateCardsLabel:(UILabel *)label withCount:(NSUInteger)count
+- (void)updateHandCountLabel:(UILabel *)label withCount:(NSUInteger)count
 {
     switch (count) {
         case 0:
@@ -143,19 +176,7 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     NSUInteger index = indexPath.item;
-
-    NWMCardModel *card = [self.playerHand getCardAtIndex:index];
-
-    if ([card canBeStackedOn:self.currentCard]) {
-        // drop card on pile
-        [self.playerHand removeCardAtIndex:index];
-        self.currentCard = card;
-        
-        // redraw
-        self.pileCardImage.image = [self.currentCard getImage];
-        [self.playerCollection deleteItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:index inSection:0]]];
-        [self updateCardsLabel:self.playerLabel withCount:self.playerHand.count];
-    }
+    NSLog(@"Card %d selected", index);
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath

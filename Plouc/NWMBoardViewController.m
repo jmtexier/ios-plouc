@@ -14,19 +14,26 @@
 
 @interface NWMBoardViewController ()
 
+@property (weak, nonatomic) IBOutlet UIButton *giveUpButton;
+
 @property (weak, nonatomic) IBOutlet UICollectionView *playerCollection;
 @property (weak, nonatomic) IBOutlet UILabel *playerLabel;
+@property (weak, nonatomic) IBOutlet UIButton *skipTurnButton;
 
 @property (weak, nonatomic) IBOutlet UIImageView *computerCard;
 @property (weak, nonatomic) IBOutlet UILabel *computerLabel;
 
 @property (weak, nonatomic) IBOutlet UIButton *pileButton;
-@property (weak, nonatomic) IBOutlet UIImageView *pileCardImage;
 @property (weak, nonatomic) IBOutlet UILabel *pileLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *pileCardImage;
+@property (weak, nonatomic) IBOutlet UIImageView *penultimateCardImage;
+@property (weak, nonatomic) IBOutlet UIImageView *antepenultimateCardImage;
 
 @end
 
 @implementation NWMBoardViewController
+
+#pragma mark - ViewController methods
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -34,26 +41,30 @@
     if (self) {
         _game = [[NWMGameModel alloc] init];
     }
-
+    
     return self;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    // enable game delegation
+    _game.delegate = self;
 
     // set computer's back card
-    self.computerCard.image = [NWMCardModel getJokerImage];
-    [self updateHandCountLabel:self.computerLabel withCount:self.game.computer.cardCount];
+    [self.computerCard setImage:[NWMCardModel getBackImage]];
     
-    // set pile's back card and draw first card
+    // set pile's back images
     [self.pileButton setImage:[NWMCardModel getBackImage] forState:UIControlStateNormal];
-    [self.pileCardImage setImage:[self.game.pile.currentCard getImage]];
+    [self.view sendSubviewToBack:self.penultimateCardImage];
+    [self.penultimateCardImage setImage:[NWMCardModel getJokerImage]];
+    [self.view sendSubviewToBack:self.antepenultimateCardImage];
+    [self.antepenultimateCardImage setImage:[NWMCardModel getJokerImage]];
 
     // initialize player's collection view
     [self.playerCollection setUserInteractionEnabled:YES];
     self.playerCollection.allowsSelection = YES;
-    [self updateHandCountLabel:self.playerLabel withCount:self.game.player.cardCount];
 
     // implement swipe gesture to allow player to play one of his(her) cards
     UISwipeGestureRecognizer *swipeCell = [[UISwipeGestureRecognizer alloc] initWithTarget:self
@@ -61,21 +72,9 @@
     [swipeCell setDirection:UISwipeGestureRecognizerDirectionUp];
     swipeCell.numberOfTouchesRequired = 1;
     [self.playerCollection addGestureRecognizer:swipeCell];
-}
-
-- (void)onCellSwipped:(UISwipeGestureRecognizer *)gestureRecognizer {
-    // ensure gesture is done
-    if (gestureRecognizer.state != UIGestureRecognizerStateEnded)
-        return;
-
-    // ensure swipe is done on a cell
-    CGPoint p = [gestureRecognizer locationInView:self.playerCollection];
-    NSIndexPath *indexPath = [self.playerCollection indexPathForItemAtPoint:p];
-    if (indexPath == nil)
-        return;
-
-    // play card corresponding to cell (if possible)
-    [self playCard:indexPath];
+    
+    // draw board
+    [self drawBoard];
 }
 
 - (void)didReceiveMemoryWarning
@@ -83,8 +82,41 @@
     [super didReceiveMemoryWarning];
 }
 
-- (IBAction)pileButton:(id)sender {
-    [self drawCard];
+#pragma mark - Callbacks and events
+
+- (IBAction)onPileTouch:(id)sender {
+    // draw card from pile and allow skip
+    [self.game drawCard];
+    [self.skipTurnButton setTitle:@"Pass my turn" forState:UIControlStateNormal];
+    self.skipTurnButton.enabled = true;
+    self.skipTurnButton.alpha = 1.0;
+    
+    // disable pile
+    self.pileButton.enabled = false;
+    self.pileButton.alpha = 0.4f;
+
+    // redraw labels and collection
+    [self.playerCollection reloadData];
+    [self updateHandCountLabel:self.playerLabel withCount:self.game.player.cardCount];
+}
+
+- (IBAction)onSkipTurn:(id)sender {
+    if (self.game.gameIsOver) {
+        // reset ante and penultimate images
+        [self.antepenultimateCardImage setImage:[NWMCardModel getJokerImage]];
+        [self.penultimateCardImage setImage:[NWMCardModel getJokerImage]];
+
+        // if game was over, let's start another round
+        [self.game nextRound];
+    } else {
+        // otherwise, player will skip his(her) turn
+        [self.game nextTurn];
+    }
+}
+
+- (IBAction)onGiveUp:(id)sender {
+    // confirm give up
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)updateHandCountLabel:(UILabel *)label withCount:(NSUInteger)count
@@ -93,59 +125,106 @@
         case 0:
             label.text = @"(empty)";
             break;
-        
+            
         case 1:
             label.text = @"(last one!)";
             break;
-
+            
         case 2:
             label.text = @"(two left!)";
             break;
-
+            
         default:
             label.text =[[NSString alloc] initWithFormat:@"(%d cards)", count];
     }
 }
 
-#pragma mark - Game logic
-
-- (void)playCard:(NSIndexPath *)indexPath
-{
+- (void)onCellSwipped:(UISwipeGestureRecognizer *)gestureRecognizer {
+    // ensure gesture is done
+    if (gestureRecognizer.state != UIGestureRecognizerStateEnded)
+        return;
+    
+    // ensure swipe is done on a cell
+    CGPoint p = [gestureRecognizer locationInView:self.playerCollection];
+    NSIndexPath *indexPath = [self.playerCollection indexPathForItemAtPoint:p];
+    if (indexPath == nil)
+        return;
+    
+    // play card corresponding to cell (if possible)
     NSUInteger index = indexPath.item;
     NWMCardModel *card = [self.game.player getCardAtIndex:index];
     if ([card canBeStackedOn:self.game.currentCard]) {
         // play card
         [self.game playCard:index];
-        self.pileCardImage.image = [self.game.currentCard getImage];
-        
-        // redraw player's hand (after 'playCard' turn has changed, so we check if it's computer's turn)
-        if (self.game.currentPlayer == self.game.computer) {
-            [self.playerCollection deleteItemsAtIndexPaths:@[indexPath]];
-            [self updateHandCountLabel:self.playerLabel withCount:self.game.player.cardCount];
-        } else {
-            // computer has played
-            [self updateHandCountLabel:self.computerLabel withCount:self.game.computer.cardCount];
-        }
     } else {
-        // display sound or do something...
+        // send a sound or do something...
     }
 }
 
-- (void)drawCard
+#pragma mark - NWMGameDelegate implementation
+
+
+-(void)onGameCardPlayed:(NWMCardModel *)card;
 {
-    // draw card and skip turn
-    [self.game drawCard];
+    NSLog(@"Card played: %@", card.description);
+    // move penultimate card image to antepenultimate position
+    [self.antepenultimateCardImage setImage:[self.penultimateCardImage.image copy]];
 
-    // redraw
-    if (self.game.currentPlayer == self.game.computer) {
-        [self updateHandCountLabel:self.computerLabel withCount:self.game.computer.cardCount];
-    } else {
-        [self.playerCollection reloadData];
-        [self updateHandCountLabel:self.playerLabel withCount:self.game.player.cardCount];
+    // move current card image to penultimate position
+    [self.penultimateCardImage setImage:[self.pileCardImage.image copy]];
+
+    // set played image on top of pile
+    [self.pileCardImage setImage:[card getImage]];
+}
+
+-(void)onGameNextTurn
+{
+    // play for computer?
+    if (self.game.computersTurn) {
+        // simulate some thinking there ...
+        [self.game playAsComputer];
+        return;
     }
+    [self drawBoard];
+}
 
-    // skip turn
-    [self.game skipTurn];
+-(void)drawBoard
+{
+    // is this to the player or to the computer to play?
+    BOOL playerOK = self.game.playersTurn;
+
+    CGFloat alphaOK = (playerOK) ? 1.0 : 0.4;
+    CGFloat alphaKO = (playerOK) ? 0.4 : 1.0;
+    NSString *label = (playerOK) ? @"Play or Draw" : @"AI is thinking...";
+    
+    self.pileButton.enabled = playerOK;
+    self.pileButton.alpha = alphaOK;
+    
+    self.playerCollection.userInteractionEnabled = playerOK;
+    self.playerCollection.alpha = alphaOK;
+    
+    self.skipTurnButton.enabled = !playerOK;
+    self.skipTurnButton.alpha = alphaKO;
+    [self.skipTurnButton setTitle:label forState:UIControlStateNormal];
+
+    // redraw and update labels as some attack may have been played
+    self.pileCardImage.image = [self.game.currentCard getImage];
+    [self updateHandCountLabel:self.pileLabel withCount:self.game.pile.cardCount];
+    [self.playerCollection reloadData];
+    [self updateHandCountLabel:self.playerLabel withCount:self.game.player.cardCount];
+    [self updateHandCountLabel:self.computerLabel withCount:self.game.computer.cardCount];
+}
+
+- (void)onGameOver
+{
+    // draw board
+    [self drawBoard];
+
+    // set final message
+    NSString *label = (self.game.playerWon) ? @"You Win! :)" : @"Loser!! :(";
+    self.skipTurnButton.enabled = true;
+    self.skipTurnButton.alpha = 1.0;
+    [self.skipTurnButton setTitle:label forState:UIControlStateNormal];
 }
 
 #pragma mark - UICollectionViewDataSource implementation
@@ -157,8 +236,6 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"Cell for item index %d requested", indexPath.item);
-
     [collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"card" ];
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"card" forIndexPath:indexPath];
 

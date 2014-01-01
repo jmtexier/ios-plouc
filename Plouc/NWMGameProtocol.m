@@ -8,6 +8,9 @@
 
 #import "NWMGameProtocol.h"
 
-@implementation NWMGameProtocol
+@protocol NWMGameProtocol
+
+-(void)GameIsOver:(NWMGameModel *)game;
+
 
 @end

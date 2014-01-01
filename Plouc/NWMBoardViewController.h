@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "NWMGameModel.h"
 
-@interface NWMBoardViewController : UIViewController <UICollectionViewDelegate, UICollectionViewDataSource>
+@interface NWMBoardViewController : UIViewController <UICollectionViewDelegate, UICollectionViewDataSource, NWMGameDelegate>
 
 @property (readonly) NWMGameModel *game;
 

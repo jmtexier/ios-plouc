@@ -21,25 +21,41 @@
 {
     self = [super init];
     if (self) {
-        // initialize pile with all possible cards
-        self.stack = [@[] mutableCopy];
-        for (NSUInteger color = Hearts; color <=Clubs; ++color) {
-            for (NSUInteger value = Ace; value <= King; ++value) {
-                [self.stack addObject:[[NWMCardModel alloc] initWithColor:color andValue:value]];
-            }
-        }
-
-        // shuffle once
-        [self shuffle];
-        
-        // do not draw card at the very beginning
-        _currentCard = nil;
+        [self reset];
     }
 
     return self;
 }
 
-- (int)count
+- (void)reset
+{
+    [self resetWithoutCards:nil andWithCurrentCard:nil];
+}
+
+- (void)resetWithoutCards:(NSMutableArray *)cards andWithCurrentCard:(NWMCardModel *)current
+{
+    // initialize pile with all possible cards
+    NSLog(@"Resetting pile...");
+    self.stack = [@[] mutableCopy];
+    for (NSUInteger color = Hearts; color <=Clubs; ++color) {
+        for (NSUInteger value = Ace; value <= King; ++value) {
+            NWMCardModel *card = [[NWMCardModel alloc] initWithColor:color andValue:value];
+            if (cards == nil || [cards indexOfObject:card.uniqueId] == NSNotFound) {
+                [self.stack addObject:card];
+            }
+        }
+    }
+
+    NSLog(@"Pile size is %d", [self.stack count]);
+
+    // shuffle once
+    [self shuffle];
+    
+    // do not draw card at the very beginning
+    _currentCard = current;
+}
+
+- (int)cardCount
 {
     return [self.stack count];
 }
@@ -59,7 +75,8 @@
 
 - (void)shuffle
 {
-    NSUInteger count = self.count;
+    NSLog(@"Shuffing pile cards...");
+    NSUInteger count = self.cardCount;
     for (NSUInteger index = 0; index < count; ++index) {
         // select a random element between i and end of array to swap with
         NSInteger randomSize = count - index;

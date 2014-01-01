@@ -12,14 +12,13 @@
 @interface NWMPlayerModel : NSObject
 
 @property (readonly) int cardCount;
+@property (readonly) NSMutableArray *hand;
 
 - (void)addCard:(NWMCardModel *)card;
 - (void)removeCardAtIndex:(NSUInteger)index;
 - (void)swapCardAtIndex:(NSUInteger)from withCardAtIndex:(NSUInteger)to;
 - (NWMCardModel *)getCardAtIndex:(NSUInteger)index;
 
-- (void)sort;
-
-- (BOOL)canPlayOnCard:(NWMCardModel *)topCard;
+- (void)sortHand;
 
 @end

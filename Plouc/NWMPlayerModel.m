@@ -8,49 +8,43 @@
 
 #import "NWMPlayerModel.h"
 
-@interface NWMPlayerModel ()
-
-@property (strong, nonatomic) NSMutableArray *cards;
-
-@end
-
 @implementation NWMPlayerModel
 
 -(id)init
 {
     if (self = [super init]) {
-        self.cards = [@[] mutableCopy];
+        _hand = [@[] mutableCopy];
     }
     return self;
 }
 
 - (int)cardCount
 {
-    return [self.cards count];
+    return [_hand count];
 }
 
 - (void)addCard:(NWMCardModel *)card
 {
-    [self.cards addObject:card];
+    [_hand addObject:card];
 }
 
 - (void)removeCardAtIndex:(NSUInteger)index
 {
-    [self.cards removeObjectAtIndex:index];
+    [_hand removeObjectAtIndex:index];
 }
 
 - (void)swapCardAtIndex:(NSUInteger)from withCardAtIndex:(NSUInteger)to {
-    [self.cards exchangeObjectAtIndex:from withObjectAtIndex:to];
+    [_hand exchangeObjectAtIndex:from withObjectAtIndex:to];
 }
 
 - (NWMCardModel *)getCardAtIndex:(NSUInteger)index
 {
-    return self.cards[index];
+    return _hand[index];
 }
 
-- (void)sort
+- (void)sortHand
 {
-    [self.cards sortUsingComparator:^(NWMCardModel *obj1, NWMCardModel *obj2) {
+    [_hand sortUsingComparator:^(NWMCardModel *obj1, NWMCardModel *obj2) {
         // sort by color
         if ( obj1.color < obj2.color ) {
             return NSOrderedAscending;
@@ -66,17 +60,6 @@
                 return NSOrderedSame;
         }
     }];
-}
-
-- (BOOL)canPlayOnCard:(NWMCardModel *)topCard
-{
-    // play can play if at least one of his(her) card can be stacked on the top card
-    for(NWMCardModel *card in _cards) {
-        if ([card canBeStackedOn:topCard])
-            return YES;
-    }
-
-    return NO;
 }
 
 @end

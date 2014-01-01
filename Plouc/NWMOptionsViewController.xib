@@ -47,7 +47,6 @@
             </subviews>
             <color key="backgroundColor" red="0.13249349469999999" green="0.63600127549999996" blue="0.26096302339999999" alpha="1" colorSpace="calibratedRGB"/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
-            <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
         </view>
     </objects>

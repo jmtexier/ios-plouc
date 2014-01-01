@@ -43,9 +43,9 @@ typedef NS_ENUM(NSUInteger, CardValue) {
 
 - (UIImage *)getImage;
 
+@property (readonly) NSNumber *uniqueId;
 @property (readonly) BOOL isAttack;
-@property (readonly) BOOL isChainable;
-@property (readonly) NSUInteger attackCost;
+@property (readonly) NSUInteger attackStrength;
 
 - (BOOL)canBeStackedOn:(NWMCardModel *)card;
 

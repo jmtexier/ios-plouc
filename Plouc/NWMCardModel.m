@@ -64,7 +64,6 @@ static CGImageRef _deck;
 - (BOOL)isAttack
 {
     switch (self.value) {
-        case Ace:
         case Two:
         case Six:
         case Seven:
@@ -75,17 +74,10 @@ static CGImageRef _deck;
     }
 }
 
-- (BOOL)isChainable
+- (NSNumber *)uniqueId
 {
-    switch (self.value) {
-        case Two:
-        case Six:
-        case Seven:
-            return YES;
-            
-        default:
-            return NO;
-    }
+    // a unique id (offset) based on color and value
+    return [NSNumber numberWithInt:(self.color*13 + self.value - 1)];
 }
 
 - (BOOL) canBeStackedOn:(NWMCardModel *)card
@@ -94,11 +86,9 @@ static CGImageRef _deck;
     return (self.value == Eight || self.color == card.color || self.value == card.value);
 }
 
-- (NSUInteger) attackCost
+- (NSUInteger) attackStrength
 {
     switch (self.value) {
-        case Ace:
-            return 3;
         case Two:
             return 2;
         case Six:
@@ -116,4 +106,8 @@ static CGImageRef _deck;
     return [NWMCardModel getImageFromColor:self.color andValue:self.value];
 }
 
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"Card %u of %u", self.value, self.color];
+}
 @end

@@ -10,10 +10,21 @@
 #import "NWMPileModel.h"
 #import "NWMPlayerModel.h"
 
+@protocol NWMGameDelegate
+
+-(void)onGameOver;
+
+-(void)onGameNextTurn;
+
+-(void)onGameCardPlayed:(NWMCardModel *)card;
+
+@end
+
 @interface NWMGameModel : NSObject
 
-@property (readonly) NSUInteger round;
+@property (weak) NSObject<NWMGameDelegate> *delegate;
 
+@property (readonly) NSUInteger round;
 @property (readonly) NWMPileModel *pile;
 @property (readonly) NWMCardModel *currentCard;
 @property (readonly) NWMPlayerModel *computer;
@@ -22,12 +33,16 @@
 
 - (void)reset:(BOOL)playerStarts;
 
-- (BOOL)canPlay;
-- (NWMCardModel *)drawCard;
+- (void)drawCard;
+- (NSUInteger)computeCardToPlay;
 - (void)playCard:(NSUInteger)index;
-- (void)skipTurn;
+- (void)nextTurn;
+- (void)playAsComputer;
 
-- (BOOL)gameIsOver;
+@property (readonly) BOOL computersTurn;
+@property (readonly) BOOL playersTurn;
+@property (readonly) BOOL gameIsOver;
+@property (readonly) BOOL playerWon;
 
 - (void)nextRound;
 

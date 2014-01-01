@@ -18,12 +18,12 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button autoresizesSubviews="NO" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bPR-VL-iSn">
-                    <rect key="frame" x="101" y="100" width="118" height="36"/>
+                    <rect key="frame" x="101" y="70" width="118" height="36"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="0.80117984693877553" green="0.22429531195903679" blue="0.11996229593674292" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="118" id="EFh-Tp-Cwi"/>
-                        <constraint firstAttribute="height" constant="36" id="Tmc-4a-0MS"/>
+                        <constraint firstAttribute="width" constant="118" id="cxi-0f-hJR"/>
+                        <constraint firstAttribute="height" constant="36" id="pPa-Cb-oCA"/>
                     </constraints>
                     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <inset key="contentEdgeInsets" minX="2" minY="2" maxX="2" maxY="2"/>
@@ -36,15 +36,14 @@
                     </connections>
                 </button>
                 <button autoresizesSubviews="NO" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Knl-6I-43I">
-                    <rect key="frame" x="101" y="222" width="118" height="36"/>
+                    <rect key="frame" x="101" y="250" width="118" height="36"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="0.80117984693877553" green="0.22429531195903679" blue="0.11996229593674292" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="36" id="dxd-P2-Aym"/>
-                        <constraint firstAttribute="width" constant="118" id="dy9-R2-m6i"/>
+                        <constraint firstAttribute="height" constant="36" id="Ngu-2L-2T1"/>
                     </constraints>
                     <inset key="contentEdgeInsets" minX="2" minY="2" maxX="2" maxY="2"/>
-                    <state key="normal" title="How To Play?">
+                    <state key="normal" title="How to Play?">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -52,13 +51,25 @@
                         <action selector="helpButton:" destination="-1" eventType="touchUpInside" id="IxJ-L2-pbl"/>
                     </connections>
                 </button>
+                <button autoresizesSubviews="NO" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hdj-xg-70O">
+                    <rect key="frame" x="101" y="190" width="118" height="36"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" red="0.80117984689999999" green="0.224295312" blue="0.1199622959" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="36" id="W3b-P8-f4h"/>
+                    </constraints>
+                    <inset key="contentEdgeInsets" minX="2" minY="2" maxX="2" maxY="2"/>
+                    <state key="normal" title="Hall of Fame">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
                 <button autoresizesSubviews="NO" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TRG-6a-op2">
-                    <rect key="frame" x="101" y="163" width="118" height="36"/>
+                    <rect key="frame" x="101" y="130" width="118" height="36"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="0.80117984693877553" green="0.22429531195903679" blue="0.11996229593674292" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="36" id="FsA-jU-FeJ"/>
-                        <constraint firstAttribute="width" constant="118" id="ebg-P7-YdH"/>
+                        <constraint firstAttribute="height" constant="36" id="1hQ-Rc-UrD"/>
                     </constraints>
                     <inset key="contentEdgeInsets" minX="2" minY="2" maxX="2" maxY="2"/>
                     <state key="normal" title="Options">
@@ -72,14 +83,17 @@
             </subviews>
             <color key="backgroundColor" red="0.13249349474694341" green="0.63600127551020402" blue="0.26096302339890043" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstAttribute="centerX" secondItem="bPR-VL-iSn" secondAttribute="centerX" id="BKE-sH-LAW"/>
-                <constraint firstItem="Knl-6I-43I" firstAttribute="top" secondItem="TRG-6a-op2" secondAttribute="bottom" constant="23" id="ByD-sc-81G"/>
-                <constraint firstItem="TRG-6a-op2" firstAttribute="centerX" secondItem="bPR-VL-iSn" secondAttribute="centerX" id="DEA-ec-ufJ"/>
-                <constraint firstItem="TRG-6a-op2" firstAttribute="centerX" secondItem="Knl-6I-43I" secondAttribute="centerX" id="FAv-UI-XSc"/>
-                <constraint firstAttribute="centerX" secondItem="TRG-6a-op2" secondAttribute="centerX" id="ON2-QR-SF8"/>
-                <constraint firstItem="bPR-VL-iSn" firstAttribute="top" secondItem="1" secondAttribute="top" constant="100" id="Pcn-In-WZA"/>
-                <constraint firstItem="TRG-6a-op2" firstAttribute="top" secondItem="bPR-VL-iSn" secondAttribute="bottom" constant="27" id="jLc-k1-QTZ"/>
-                <constraint firstAttribute="centerX" secondItem="Knl-6I-43I" secondAttribute="centerX" id="k9G-23-PbW"/>
+                <constraint firstItem="Knl-6I-43I" firstAttribute="leading" secondItem="Hdj-xg-70O" secondAttribute="leading" id="ARS-FK-2YJ"/>
+                <constraint firstItem="bPR-VL-iSn" firstAttribute="trailing" secondItem="TRG-6a-op2" secondAttribute="trailing" id="HMI-Nq-AUh"/>
+                <constraint firstItem="Knl-6I-43I" firstAttribute="top" secondItem="Hdj-xg-70O" secondAttribute="bottom" constant="24" id="U9I-bU-sM9"/>
+                <constraint firstItem="Hdj-xg-70O" firstAttribute="top" secondItem="TRG-6a-op2" secondAttribute="bottom" constant="24" id="Xdx-BU-6l6"/>
+                <constraint firstItem="Hdj-xg-70O" firstAttribute="trailing" secondItem="Knl-6I-43I" secondAttribute="trailing" id="ZwP-U9-Y4i"/>
+                <constraint firstItem="bPR-VL-iSn" firstAttribute="top" secondItem="1" secondAttribute="top" constant="70" id="cCg-VE-yQG"/>
+                <constraint firstItem="TRG-6a-op2" firstAttribute="centerX" secondItem="1" secondAttribute="centerX" id="fpM-O8-db0"/>
+                <constraint firstItem="bPR-VL-iSn" firstAttribute="leading" secondItem="TRG-6a-op2" secondAttribute="leading" id="gGR-Ae-oQh"/>
+                <constraint firstItem="TRG-6a-op2" firstAttribute="leading" secondItem="Hdj-xg-70O" secondAttribute="leading" id="tPF-1x-GjK"/>
+                <constraint firstItem="TRG-6a-op2" firstAttribute="trailing" secondItem="Hdj-xg-70O" secondAttribute="trailing" id="uqf-xs-AuK"/>
+                <constraint firstItem="TRG-6a-op2" firstAttribute="top" secondItem="bPR-VL-iSn" secondAttribute="bottom" constant="24" id="xzO-ar-sIf"/>
             </constraints>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>

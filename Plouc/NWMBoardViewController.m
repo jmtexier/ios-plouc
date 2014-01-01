@@ -29,6 +29,9 @@
 @property (weak, nonatomic) IBOutlet UIImageView *penultimateCardImage;
 @property (weak, nonatomic) IBOutlet UIImageView *antepenultimateCardImage;
 
+@property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
+@property (weak, nonatomic) IBOutlet UILabel *roundLabel;
+
 @end
 
 @implementation NWMBoardViewController
@@ -58,9 +61,9 @@
     // set pile's back images
     [self.pileButton setImage:[NWMCardModel getBackImage] forState:UIControlStateNormal];
     [self.view sendSubviewToBack:self.penultimateCardImage];
-    [self.penultimateCardImage setImage:[NWMCardModel getJokerImage]];
+    [self.penultimateCardImage setImage:[NWMCardModel getWhiteImage]];
     [self.view sendSubviewToBack:self.antepenultimateCardImage];
-    [self.antepenultimateCardImage setImage:[NWMCardModel getJokerImage]];
+    [self.antepenultimateCardImage setImage:[NWMCardModel getWhiteImage]];
 
     // initialize player's collection view
     [self.playerCollection setUserInteractionEnabled:YES];
@@ -103,11 +106,12 @@
 - (IBAction)onSkipTurn:(id)sender {
     if (self.game.gameIsOver) {
         // reset ante and penultimate images
-        [self.antepenultimateCardImage setImage:[NWMCardModel getJokerImage]];
-        [self.penultimateCardImage setImage:[NWMCardModel getJokerImage]];
+        [self.antepenultimateCardImage setImage:[NWMCardModel getWhiteImage]];
+        [self.penultimateCardImage setImage:[NWMCardModel getWhiteImage]];
 
         // if game was over, let's start another round
         [self.game nextRound];
+        self.roundLabel.text = [[NSString alloc] initWithFormat:@"Round #%d", self.game.round];
     } else {
         // otherwise, player will skip his(her) turn
         [self.game nextTurn];
@@ -225,6 +229,9 @@
     self.skipTurnButton.enabled = true;
     self.skipTurnButton.alpha = 1.0;
     [self.skipTurnButton setTitle:label forState:UIControlStateNormal];
+    
+    // update player's score label
+    self.scoreLabel.text = [[NSString alloc] initWithFormat:@"Score: %d", self.game.playerScore];
 }
 
 #pragma mark - UICollectionViewDataSource implementation

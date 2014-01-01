@@ -15,37 +15,52 @@ static CGImageRef _deck;
 + (CGImageRef)deck
 {
     if (!_deck) {
-        _deck = [UIImage imageNamed:@"Card-Deck.png"].CGImage;
+        _deck = [UIImage imageNamed:@"CardDeckSprite.png"].CGImage;
     }
     return _deck;
 }
 
++(UIImage *)getColorImage:(CardColor)color
+{
+    return [NWMCardModel getImageFromOffset:(54+color)];
+}
+
++(UIImage *)getWhiteImage
+{
+    return [NWMCardModel getImageFromOffset:58];
+}
+
 +(UIImage *)getBackImage
 {
-    // back card is the first card after all 4 colors
-    return [NWMCardModel getImageFromColor:4 andValue:1];
+    return [NWMCardModel getImageFromOffset:52];
 }
 
 +(UIImage *)getJokerImage
 {
-    // joker card is the second card after all 4 colors
-    return [NWMCardModel getImageFromColor:4 andValue:2];
+    return [NWMCardModel getImageFromOffset:53];
 }
 
 + (UIImage *)getImageFromColor:(NSUInteger)color andValue:(NSUInteger)value
 {
-    // extract card from deck image (see 'Card-Deck.png' resource)
-    // card dimensions are 110x146px with a transparent border of 2px
-    int offset = color * 13 + value - 1;
-    int x = 2 + 112*(offset % 9);
-    int y = 2 + 148*(offset / 9);
+    // extract card from deck image (see 'CardDeckSprite.png' resource)
+    // card dimensions are 112x148px with a transparent border of 1px
+    NSUInteger offset = (color * 13 + value - 1);
+    return [self getImageFromOffset:offset];
+}
+
++ (UIImage *)getImageFromOffset:(NSUInteger)offset
+{
+    // extract card from deck image (see 'CardDeckSprite.png' resource)
+    // card dimensions are 112x148px with a transparent border of 1px
+    int x = 112*offset;
     
-    CGImageRef partOfDeck = CGImageCreateWithImageInRect(NWMCardModel.deck, CGRectMake(x, y, 110, 146));
+    CGImageRef partOfDeck = CGImageCreateWithImageInRect(NWMCardModel.deck, CGRectMake(x, 0, 112, 148));
     UIImage *image = [UIImage imageWithCGImage:partOfDeck];
     CGImageRelease(partOfDeck);
     
-    UIGraphicsBeginImageContextWithOptions(CGSizeMake(55, 72), NO, 0.0);
-    [image drawInRect:CGRectMake(0, 0, 55, 72)];
+    // resize to half-size (56x74px)
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(56, 74), NO, 0.0);
+    [image drawInRect:CGRectMake(0, 0, 56, 74)];
     UIImage *resizedImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     

@@ -27,6 +27,8 @@
     self = [super init];
     if (self) {
         [self reset:playerStarts];
+        _playerScore = 0;
+        _round = 1;
     }
     return self;
 }
@@ -135,6 +137,8 @@
 {
     // first check if game is over
     if ([self gameIsOver]) {
+        // update player's score
+        [self updatePlayerScore];
         [self.delegate onGameOver];
     } else {
         // change current player?
@@ -143,6 +147,18 @@
         }
         [self.delegate onGameNextTurn];
     }
+}
+
+- (void)updatePlayerScore
+{
+    // mark 1 point for a win, 2 points if opponent as more than 5 cards, 5 points if more than 10 cards
+    NSUInteger cardsLeft = (self.playerWon) ? _computer.cardCount : _player.cardCount;
+    NSInteger score = (cardsLeft > 10) ? 4 : ((cardsLeft > 5) ? 2 : 1);
+    
+    if (self.playerWon)
+        _playerScore += score;
+    else
+        _playerScore -= score;
 }
 
 - (BOOL)gameIsOver

@@ -25,7 +25,8 @@
 
 - (void)addCard:(NWMCardModel *)card
 {
-    [_hand addObject:card];
+    // add card at first place so player can see the addition
+    [_hand insertObject:card atIndex:0];
 }
 
 - (void)removeCardAtIndex:(NSUInteger)index

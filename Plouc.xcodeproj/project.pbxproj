@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2E20E70D1874B3E60041AFE5 /* CardDeckSprite.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E20E70C1874B3E60041AFE5 /* CardDeckSprite.png */; };
 		2E36CC8318703B0A008D4166 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E36CC8218703B0A008D4166 /* Foundation.framework */; };
 		2E36CC8518703B0A008D4166 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E36CC8418703B0A008D4166 /* CoreGraphics.framework */; };
 		2E36CC8718703B0A008D4166 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E36CC8618703B0A008D4166 /* UIKit.framework */; };
@@ -46,6 +47,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2E20E70C1874B3E60041AFE5 /* CardDeckSprite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CardDeckSprite.png; sourceTree = "<group>"; };
 		2E36CC7F18703B0A008D4166 /* Plouc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Plouc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E36CC8218703B0A008D4166 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2E36CC8418703B0A008D4166 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -220,6 +222,7 @@
 		2E36CCBD187040D2008D4166 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2E20E70C1874B3E60041AFE5 /* CardDeckSprite.png */,
 				2E550E541871CD4700F27977 /* SplashScreen.jpg */,
 				2E36CCDA1870C27B008D4166 /* Card-Deck.png */,
 			);
@@ -304,6 +307,7 @@
 			files = (
 				2E36CC8D18703B0A008D4166 /* InfoPlist.strings in Resources */,
 				2E36CCD01870B111008D4166 /* NWMBoardViewController.xib in Resources */,
+				2E20E70D1874B3E60041AFE5 /* CardDeckSprite.png in Resources */,
 				2E36CCB518703B90008D4166 /* NWMMenuViewController.xib in Resources */,
 				2E36CCDB1870C27B008D4166 /* Card-Deck.png in Resources */,
 				2E36CCCB18708B1F008D4166 /* NWMHelpViewController.xib in Resources */,

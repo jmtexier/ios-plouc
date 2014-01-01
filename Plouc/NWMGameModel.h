@@ -24,6 +24,7 @@
 
 @property (weak) NSObject<NWMGameDelegate> *delegate;
 
+@property (readonly) NSInteger playerScore;
 @property (readonly) NSUInteger round;
 @property (readonly) NWMPileModel *pile;
 @property (readonly) NWMCardModel *currentCard;

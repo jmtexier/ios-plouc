@@ -10,9 +10,6 @@
 
 @interface NWMCardModel : NSObject
 
-+(UIImage *)getBackImage;
-+(UIImage *)getJokerImage;
-
 typedef NS_ENUM(NSUInteger, CardColor) {
     Hearts = 0,
     Diamonds = 1,
@@ -35,6 +32,11 @@ typedef NS_ENUM(NSUInteger, CardValue) {
     Queen = 12,
     King = 13
 };
+
++(UIImage *)getBackImage;
++(UIImage *)getJokerImage;
++(UIImage *)getWhiteImage;
++(UIImage *)getColorImage:(CardColor)color;
 
 - (id)initWithColor:(NSUInteger)color andValue:(NSUInteger)value;
 

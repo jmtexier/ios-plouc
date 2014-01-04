@@ -8,6 +8,7 @@
             <connections>
                 <outlet property="helpButton" destination="Knl-6I-43I" id="Nix-mO-sRS"/>
                 <outlet property="optionsButton" destination="TRG-6a-op2" id="c37-4c-qi8"/>
+                <outlet property="scoreButton" destination="Hdj-xg-70O" id="ykJ-6E-IfJ"/>
                 <outlet property="startNewGameButton" destination="bPR-VL-iSn" id="1lX-IY-ZQW"/>
                 <outlet property="view" destination="1" id="hal-iw-a1T"/>
             </connections>
@@ -63,6 +64,9 @@
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="scoreButton:" destination="-1" eventType="touchUpInside" id="asY-fN-gx5"/>
+                    </connections>
                 </button>
                 <button autoresizesSubviews="NO" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TRG-6a-op2">
                     <rect key="frame" x="101" y="130" width="118" height="36"/>

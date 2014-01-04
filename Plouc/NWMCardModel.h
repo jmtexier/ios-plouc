@@ -14,7 +14,8 @@ typedef NS_ENUM(NSUInteger, CardColor) {
     Hearts = 0,
     Diamonds = 1,
     Spades = 2,
-    Clubs = 3
+    Clubs = 3,
+    Special = 4
 };
 
 typedef NS_ENUM(NSUInteger, CardValue) {
@@ -30,7 +31,14 @@ typedef NS_ENUM(NSUInteger, CardValue) {
     Ten = 10,
     Knave = 11,
     Queen = 12,
-    King = 13
+    King = 13,
+    
+    Joker = 2,
+    Special_Eights = 3,
+    Eight_Hearts = 3,
+    Eight_Diamonds = 4,
+    Eight_Spades = 5,
+    Eight_Clubs = 6
 };
 
 +(UIImage *)getBackImage;

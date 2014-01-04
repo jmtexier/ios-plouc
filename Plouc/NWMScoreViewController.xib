@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4514" systemVersion="13B3116" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NWMScoreViewController">
+            <connections>
+                <outlet property="menuButton" destination="L1q-kg-gJq" id="Q2X-mD-5q8"/>
+                <outlet property="resetButton" destination="9eQ-DJ-Uh4" id="wV4-hE-Vik"/>
+                <outlet property="scoreTable" destination="GrI-Ra-ILD" id="YY6-1Z-b8v"/>
+                <outlet property="view" destination="1" id="UYS-my-kP7"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="1">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button autoresizesSubviews="NO" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L1q-kg-gJq">
+                    <rect key="frame" x="20" y="512" width="80" height="36"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" red="0.80117984689999999" green="0.224295312" blue="0.1199622959" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="80" id="Pwn-so-n9G"/>
+                    </constraints>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <inset key="contentEdgeInsets" minX="2" minY="2" maxX="2" maxY="2"/>
+                    <state key="normal" title="Menu">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="onMenuButton:" destination="-1" eventType="touchUpInside" id="CZU-2s-7s0"/>
+                    </connections>
+                </button>
+                <button autoresizesSubviews="NO" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9eQ-DJ-Uh4">
+                    <rect key="frame" x="220" y="512" width="80" height="36"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" red="0.80117984689999999" green="0.224295312" blue="0.1199622959" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="80" id="b83-Z1-nJa"/>
+                    </constraints>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <inset key="contentEdgeInsets" minX="2" minY="2" maxX="2" maxY="2"/>
+                    <state key="normal" title="Reset">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="onResetButton:" destination="-1" eventType="touchUpInside" id="QQx-5B-QDX"/>
+                    </connections>
+                </button>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="GrI-Ra-ILD">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="492"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <color key="backgroundColor" red="0.13249349469999999" green="0.63600127549999996" blue="0.26096302339999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="sectionIndexTrackingBackgroundColor" red="0.13249349469999999" green="0.63600127549999996" blue="0.26096302339999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="tLA-Rh-FLP"/>
+                        <outlet property="delegate" destination="-1" id="pri-e9-G5x"/>
+                    </connections>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" red="0.13249349469999999" green="0.63600127549999996" blue="0.26096302339999999" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="9eQ-DJ-Uh4" firstAttribute="bottom" secondItem="L1q-kg-gJq" secondAttribute="bottom" id="3PZ-2c-qdD"/>
+                <constraint firstAttribute="trailing" secondItem="9eQ-DJ-Uh4" secondAttribute="trailing" constant="20" symbolic="YES" id="Adq-uN-fte"/>
+                <constraint firstItem="L1q-kg-gJq" firstAttribute="top" secondItem="GrI-Ra-ILD" secondAttribute="bottom" constant="20" id="BQs-t6-dft"/>
+                <constraint firstItem="9eQ-DJ-Uh4" firstAttribute="top" secondItem="GrI-Ra-ILD" secondAttribute="bottom" constant="20" id="Hqm-mW-9KU"/>
+                <constraint firstAttribute="bottom" secondItem="9eQ-DJ-Uh4" secondAttribute="bottom" constant="20" symbolic="YES" id="NQc-aW-1ZD"/>
+                <constraint firstItem="L1q-kg-gJq" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="RzF-Kc-4b1"/>
+                <constraint firstItem="GrI-Ra-ILD" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="wC6-Q5-s3E"/>
+            </constraints>
+            <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+        </view>
+    </objects>
+</document>

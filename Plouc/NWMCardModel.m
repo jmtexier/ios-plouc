@@ -97,7 +97,13 @@ static CGImageRef _deck;
 
 - (BOOL) canBeStackedOn:(NWMCardModel *)card
 {
-    // check if current card can be stacked on another card
+    if (card.color == Special) {
+        // when an 8 has been played, we have a special color == 4 ('Special' enum value)
+        // and value is then equals to Special_Heigts + true color value
+        return (self.color == (card.value - Special_Eights));
+    }
+    
+    // otherwise, an eight can always been stack or else you need same color or same value
     return (self.value == Eight || self.color == card.color || self.value == card.value);
 }
 

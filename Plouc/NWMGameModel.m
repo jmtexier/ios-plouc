@@ -107,7 +107,13 @@
     
     // remove card from player's hand
     [_currentPlayer removeCardAtIndex:index];
-    
+
+    // when computer plays an Eight, it has to choose the best color for it...
+    if (card.value == Eight && self.computersTurn) {
+        NSLog(@"Computer has played an Eight");
+        [_pile playCard:[[NWMCardModel alloc] initWithColor:Special andValue:(Special_Eights +[self findBestColorToPlay])]];
+    }
+
     // notify delegate before putting card on the pile
     [self.delegate onGameCardPlayed:card];
 
@@ -123,8 +129,12 @@
         // same player, play again
         [self nextTurn:YES];
     } else {
-        // move to next player
-        [self nextTurn:NO];
+        // if player has played an Eight, wait for 'nextTurn'
+        if (card.value != Eight || self.computersTurn)
+        {
+            // move to next player
+            [self nextTurn:NO];
+        }
     }
 }
 
@@ -238,6 +248,27 @@
     return topIndex;
 }
 
+- (NSUInteger)findBestColorToPlay
+{
+    // when computer has played an Eight, it has to find the best color to choose
+    NSUInteger topColor = 0;
+    NSUInteger maxColor = 0;
+    NSUInteger count[4];
+    count[0] = count[1] = count[2] = count[3] = 0;
+    
+    for(NWMCardModel *card in _currentPlayer.hand) {
+        NSUInteger current = count[card.color] + 1;
+        if (current > maxColor) {
+            maxColor = current;
+            topColor = card.color;
+        }
+        count[card.color] = current;
+    }
+    
+    // return most frequent color in hand
+    return topColor;
+}
+
 - (int)computeCardScore:(NWMCardModel *) card
 {
     if (card.isAttack)
@@ -245,7 +276,7 @@
     else if (card.value == Ace)
         return 5;
     else if (card.value == Eight)
-        return 1;
+        return 2;
     
     return 0;
 }

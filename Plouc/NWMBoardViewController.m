@@ -7,12 +7,18 @@
 //
 
 #import "NWMBoardViewController.h"
+#import "NWMModalEightView.h"
+#import "NWMUIToolkit.h"
+
 #import "NWMGameModel.h"
 #import "NWMPileModel.h"
 #import "NWMPlayerModel.h"
 #import "NWMCardModel.h"
 
-@interface NWMBoardViewController ()
+@interface NWMBoardViewController ()  <UICollectionViewDelegate, UICollectionViewDataSource, UIAlertViewDelegate,
+                                       NWMGameDelegate, NWMModalEightDelegate>
+
+@property (readonly) NWMGameModel *game;
 
 @property (weak, nonatomic) IBOutlet UIButton *giveUpButton;
 
@@ -31,6 +37,8 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (weak, nonatomic) IBOutlet UILabel *roundLabel;
+
+@property (strong, nonatomic) IBOutlet NWMModalEightView *pick8View;
 
 @end
 
@@ -57,7 +65,10 @@
 
     // set computer's back card
     [self.computerCard setImage:[NWMCardModel getBackImage]];
-    
+
+    //round buttons
+    [NWMUIToolkit roundButtons:@[self.pileButton, self.skipTurnButton, self.giveUpButton]];
+
     // set pile's back images
     [self.pileButton setImage:[NWMCardModel getBackImage] forState:UIControlStateNormal];
     [self.view sendSubviewToBack:self.penultimateCardImage];
@@ -119,8 +130,23 @@
 }
 
 - (IBAction)onGiveUp:(id)sender {
-    // confirm give up
-    [self.navigationController popViewControllerAnimated:YES];
+    // ask for confirmation
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Give Up!"
+                                                    message:@"Hey loser, you really wanna quit?"
+                                                   delegate:self
+                                          cancelButtonTitle:@"Cancel"
+                                          otherButtonTitles:@"Yes", nil];
+    [alert show];
+}
+
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+        // back to menu
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 - (void)updateHandCountLabel:(UILabel *)label withCount:(NSUInteger)count
@@ -179,6 +205,18 @@
 
     // set played image on top of pile
     [self.pileCardImage setImage:[card getImage]];
+    
+    // check is player has played an Eight
+    if (card.value == Eight && self.game.playersTurn) {
+        // display color selector except if it is the last card
+        if (self.game.player.cardCount == 0) {
+            [self.game nextTurn];
+        } else {
+            self.pick8View = [[NWMModalEightView alloc] initWithFrame:self.view.bounds];
+            self.pick8View.delegate = self;
+            [self.view addSubview:self.pick8View];
+        }
+    }
 }
 
 -(void)onGameNextTurn
@@ -190,6 +228,20 @@
         return;
     }
     [self drawBoard];
+}
+
+-(void)onColorSelected:(NSUInteger)color
+{
+    NSLog(@"User has selected color %d", color);
+    // user has selected its color
+    self.pick8View = nil;
+    
+    //change pile current color and redraw
+    [self.game.pile playCard:[[NWMCardModel alloc] initWithColor:Special andValue:(Special_Eights + color)]];
+    self.pileCardImage.image = [self.game.currentCard getImage];
+    
+    // explicitely invoke next turn
+    [self.game nextTurn];
 }
 
 -(void)drawBoard

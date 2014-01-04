@@ -28,11 +28,16 @@
 		2E36CCCE18708C69008D4166 /* NWMHelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E36CCCD18708C69008D4166 /* NWMHelpViewController.m */; };
 		2E36CCD01870B111008D4166 /* NWMBoardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E36CCCF1870B111008D4166 /* NWMBoardViewController.xib */; };
 		2E36CCD31870B15A008D4166 /* NWMBoardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E36CCD21870B15A008D4166 /* NWMBoardViewController.m */; };
-		2E36CCDB1870C27B008D4166 /* Card-Deck.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E36CCDA1870C27B008D4166 /* Card-Deck.png */; };
 		2E550E4F1871AA4800F27977 /* NWMPileModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E550E4E1871AA4800F27977 /* NWMPileModel.m */; };
 		2E550E551871CD4700F27977 /* SplashScreen.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2E550E541871CD4700F27977 /* SplashScreen.jpg */; };
 		2E7E714B187182A7000DC5A9 /* NWMPlayerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E7E714A187182A7000DC5A9 /* NWMPlayerModel.m */; };
 		2E7E714E187189BE000DC5A9 /* NWMCardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E7E714D187189BE000DC5A9 /* NWMCardModel.m */; };
+		2EB2F88D1878627D009608D1 /* NWMModalEightView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB2F88C1878627D009608D1 /* NWMModalEightView.m */; };
+		2EB2F89318787FF3009608D1 /* NWMModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB2F89218787FF3009608D1 /* NWMModalViewController.m */; };
+		2EDF530418754E3800489EF2 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 2EDF530318754E3800489EF2 /* README.md */; };
+		2EDF530618755CF800489EF2 /* NWMScoreViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EDF530518755CF800489EF2 /* NWMScoreViewController.xib */; };
+		2EDF530918755D3800489EF2 /* NWMScoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EDF530818755D3800489EF2 /* NWMScoreViewController.m */; };
+		2EDF530D1875AB1D00489EF2 /* NWMUIToolkit.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EDF530C1875AB1D00489EF2 /* NWMUIToolkit.m */; };
 		2EE734701873361600687DC7 /* NWMGameModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EE7346F1873361600687DC7 /* NWMGameModel.m */; };
 /* End PBXBuildFile section */
 
@@ -76,7 +81,6 @@
 		2E36CCCF1870B111008D4166 /* NWMBoardViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NWMBoardViewController.xib; sourceTree = "<group>"; };
 		2E36CCD11870B15A008D4166 /* NWMBoardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWMBoardViewController.h; sourceTree = "<group>"; };
 		2E36CCD21870B15A008D4166 /* NWMBoardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWMBoardViewController.m; sourceTree = "<group>"; };
-		2E36CCDA1870C27B008D4166 /* Card-Deck.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Card-Deck.png"; sourceTree = "<group>"; };
 		2E550E4D1871AA4800F27977 /* NWMPileModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWMPileModel.h; sourceTree = "<group>"; };
 		2E550E4E1871AA4800F27977 /* NWMPileModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWMPileModel.m; sourceTree = "<group>"; };
 		2E550E541871CD4700F27977 /* SplashScreen.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = SplashScreen.jpg; sourceTree = "<group>"; };
@@ -84,6 +88,16 @@
 		2E7E714A187182A7000DC5A9 /* NWMPlayerModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWMPlayerModel.m; sourceTree = "<group>"; };
 		2E7E714C187189BE000DC5A9 /* NWMCardModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWMCardModel.h; sourceTree = "<group>"; };
 		2E7E714D187189BE000DC5A9 /* NWMCardModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWMCardModel.m; sourceTree = "<group>"; };
+		2EB2F88B1878627D009608D1 /* NWMModalEightView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWMModalEightView.h; sourceTree = "<group>"; };
+		2EB2F88C1878627D009608D1 /* NWMModalEightView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWMModalEightView.m; sourceTree = "<group>"; };
+		2EB2F89118787FF3009608D1 /* NWMModalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWMModalViewController.h; sourceTree = "<group>"; };
+		2EB2F89218787FF3009608D1 /* NWMModalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWMModalViewController.m; sourceTree = "<group>"; };
+		2EDF530318754E3800489EF2 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		2EDF530518755CF800489EF2 /* NWMScoreViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NWMScoreViewController.xib; sourceTree = "<group>"; };
+		2EDF530718755D3800489EF2 /* NWMScoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWMScoreViewController.h; sourceTree = "<group>"; };
+		2EDF530818755D3800489EF2 /* NWMScoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWMScoreViewController.m; sourceTree = "<group>"; };
+		2EDF530B1875AB1D00489EF2 /* NWMUIToolkit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWMUIToolkit.h; sourceTree = "<group>"; };
+		2EDF530C1875AB1D00489EF2 /* NWMUIToolkit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWMUIToolkit.m; sourceTree = "<group>"; };
 		2EE7346E1873361600687DC7 /* NWMGameModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWMGameModel.h; sourceTree = "<group>"; };
 		2EE7346F1873361600687DC7 /* NWMGameModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWMGameModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -119,6 +133,7 @@
 				2E36CCA118703B0B008D4166 /* PloucTests */,
 				2E36CC8118703B0A008D4166 /* Frameworks */,
 				2E36CC8018703B0A008D4166 /* Products */,
+				2EDF530318754E3800489EF2 /* README.md */,
 			);
 			sourceTree = "<group>";
 		};
@@ -151,6 +166,7 @@
 				2E36CCBA18704093008D4166 /* Controllers */,
 				2E36CCBB187040AE008D4166 /* Model */,
 				2E36CCBD187040D2008D4166 /* Resources */,
+				2EDF530A1875AAE400489EF2 /* Toolbox */,
 				2E36CC8918703B0A008D4166 /* Supporting Files */,
 			);
 			path = Plouc;
@@ -200,6 +216,11 @@
 				2E36CCD11870B15A008D4166 /* NWMBoardViewController.h */,
 				2E36CCD21870B15A008D4166 /* NWMBoardViewController.m */,
 				2E36CCCF1870B111008D4166 /* NWMBoardViewController.xib */,
+				2EDF530718755D3800489EF2 /* NWMScoreViewController.h */,
+				2EDF530818755D3800489EF2 /* NWMScoreViewController.m */,
+				2EDF530518755CF800489EF2 /* NWMScoreViewController.xib */,
+				2EB2F88B1878627D009608D1 /* NWMModalEightView.h */,
+				2EB2F88C1878627D009608D1 /* NWMModalEightView.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -224,9 +245,19 @@
 			children = (
 				2E20E70C1874B3E60041AFE5 /* CardDeckSprite.png */,
 				2E550E541871CD4700F27977 /* SplashScreen.jpg */,
-				2E36CCDA1870C27B008D4166 /* Card-Deck.png */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		2EDF530A1875AAE400489EF2 /* Toolbox */ = {
+			isa = PBXGroup;
+			children = (
+				2EDF530B1875AB1D00489EF2 /* NWMUIToolkit.h */,
+				2EDF530C1875AB1D00489EF2 /* NWMUIToolkit.m */,
+				2EB2F89118787FF3009608D1 /* NWMModalViewController.h */,
+				2EB2F89218787FF3009608D1 /* NWMModalViewController.m */,
+			);
+			name = Toolbox;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -277,6 +308,9 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Jean-Michel TEXIER";
 				TargetAttributes = {
+					2E36CC7E18703B0A008D4166 = {
+						DevelopmentTeam = WH4P59X445;
+					};
 					2E36CC9918703B0B008D4166 = {
 						TestTargetID = 2E36CC7E18703B0A008D4166;
 					};
@@ -309,10 +343,11 @@
 				2E36CCD01870B111008D4166 /* NWMBoardViewController.xib in Resources */,
 				2E20E70D1874B3E60041AFE5 /* CardDeckSprite.png in Resources */,
 				2E36CCB518703B90008D4166 /* NWMMenuViewController.xib in Resources */,
-				2E36CCDB1870C27B008D4166 /* Card-Deck.png in Resources */,
 				2E36CCCB18708B1F008D4166 /* NWMHelpViewController.xib in Resources */,
 				2E550E551871CD4700F27977 /* SplashScreen.jpg in Resources */,
+				2EDF530418754E3800489EF2 /* README.md in Resources */,
 				2E36CCC118705EA8008D4166 /* NWMOptionsViewController.xib in Resources */,
+				2EDF530618755CF800489EF2 /* NWMScoreViewController.xib in Resources */,
 				2E36CC9518703B0A008D4166 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -335,13 +370,17 @@
 				2E36CCCE18708C69008D4166 /* NWMHelpViewController.m in Sources */,
 				2E7E714B187182A7000DC5A9 /* NWMPlayerModel.m in Sources */,
 				2E550E4F1871AA4800F27977 /* NWMPileModel.m in Sources */,
+				2EDF530D1875AB1D00489EF2 /* NWMUIToolkit.m in Sources */,
 				2E36CCB318703B59008D4166 /* NWMMenuViewController.m in Sources */,
 				2E36CC8F18703B0A008D4166 /* main.m in Sources */,
 				2E36CCC418705EDD008D4166 /* NWMOptionsViewController.m in Sources */,
+				2EDF530918755D3800489EF2 /* NWMScoreViewController.m in Sources */,
 				2E36CCD31870B15A008D4166 /* NWMBoardViewController.m in Sources */,
+				2EB2F88D1878627D009608D1 /* NWMModalEightView.m in Sources */,
 				2E7E714E187189BE000DC5A9 /* NWMCardModel.m in Sources */,
 				2EE734701873361600687DC7 /* NWMGameModel.m in Sources */,
 				2E36CC9318703B0A008D4166 /* NWMAppDelegate.m in Sources */,
+				2EB2F89318787FF3009608D1 /* NWMModalViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -460,10 +499,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Plouc/Plouc-Prefix.pch";
 				INFOPLIST_FILE = "Plouc/Plouc-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -473,10 +515,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Plouc/Plouc-Prefix.pch";
 				INFOPLIST_FILE = "Plouc/Plouc-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

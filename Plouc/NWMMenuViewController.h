@@ -10,8 +10,4 @@
 
 @interface NWMMenuViewController : UIViewController
 
-@property (weak, nonatomic) IBOutlet UIButton *startNewGameButton;
-@property (weak, nonatomic) IBOutlet UIButton *helpButton;
-@property (weak, nonatomic) IBOutlet UIButton *optionsButton;
-
 @end

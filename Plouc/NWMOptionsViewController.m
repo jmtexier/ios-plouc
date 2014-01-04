@@ -7,8 +7,12 @@
 //
 
 #import "NWMOptionsViewController.h"
+#import "NWMUIToolkit.h"
 
 @interface NWMOptionsViewController ()
+
+@property (weak, nonatomic) IBOutlet UIButton *backButton;
+@property (weak, nonatomic) IBOutlet UIButton *saveButton;
 
 @end
 
@@ -18,16 +22,8 @@
 {
     [super viewDidLoad];
 
-    self.navigationItem.title = @"Options";
-    UIBarButtonItem *saveButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave
-                                                                                target:self
-                                                                                action:@selector(saveOptions)];
-    self.navigationItem.rightBarButtonItem = saveButton;
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [self.navigationController setNavigationBarHidden:NO animated:animated];
+    //round buttons
+    [NWMUIToolkit roundButtons:@[self.backButton, self.saveButton]];
 }
 
 - (void)didReceiveMemoryWarning
@@ -36,7 +32,12 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)saveOptions
+- (IBAction)onBackButton:(id)sender
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (IBAction)onSaveButton:(id)sender
 {
     NSLog(@"Saving options...");
     [self.navigationController popViewControllerAnimated:YES];

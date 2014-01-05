@@ -18,7 +18,7 @@
     return self;
 }
 
-- (int)cardCount
+- (NSUInteger)cardCount
 {
     return [_hand count];
 }

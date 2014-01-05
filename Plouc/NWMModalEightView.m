@@ -71,7 +71,6 @@
 
 -(void)onButton:(UIButton *)sender
 {
-    NSLog(@"A button has been clicked : %d", sender.tag);
     [self removeFromSuperview];
     [self.delegate onColorSelected:sender.tag];
 }

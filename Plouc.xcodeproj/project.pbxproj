@@ -29,7 +29,6 @@
 		2E36CCD01870B111008D4166 /* NWMBoardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E36CCCF1870B111008D4166 /* NWMBoardViewController.xib */; };
 		2E36CCD31870B15A008D4166 /* NWMBoardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E36CCD21870B15A008D4166 /* NWMBoardViewController.m */; };
 		2E550E4F1871AA4800F27977 /* NWMPileModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E550E4E1871AA4800F27977 /* NWMPileModel.m */; };
-		2E550E551871CD4700F27977 /* SplashScreen.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2E550E541871CD4700F27977 /* SplashScreen.jpg */; };
 		2E7E714B187182A7000DC5A9 /* NWMPlayerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E7E714A187182A7000DC5A9 /* NWMPlayerModel.m */; };
 		2E7E714E187189BE000DC5A9 /* NWMCardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E7E714D187189BE000DC5A9 /* NWMCardModel.m */; };
 		2EB2F88D1878627D009608D1 /* NWMModalEightView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB2F88C1878627D009608D1 /* NWMModalEightView.m */; };
@@ -83,7 +82,6 @@
 		2E36CCD21870B15A008D4166 /* NWMBoardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWMBoardViewController.m; sourceTree = "<group>"; };
 		2E550E4D1871AA4800F27977 /* NWMPileModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWMPileModel.h; sourceTree = "<group>"; };
 		2E550E4E1871AA4800F27977 /* NWMPileModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWMPileModel.m; sourceTree = "<group>"; };
-		2E550E541871CD4700F27977 /* SplashScreen.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = SplashScreen.jpg; sourceTree = "<group>"; };
 		2E7E7149187182A7000DC5A9 /* NWMPlayerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWMPlayerModel.h; sourceTree = "<group>"; };
 		2E7E714A187182A7000DC5A9 /* NWMPlayerModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWMPlayerModel.m; sourceTree = "<group>"; };
 		2E7E714C187189BE000DC5A9 /* NWMCardModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWMCardModel.h; sourceTree = "<group>"; };
@@ -244,7 +242,6 @@
 			isa = PBXGroup;
 			children = (
 				2E20E70C1874B3E60041AFE5 /* CardDeckSprite.png */,
-				2E550E541871CD4700F27977 /* SplashScreen.jpg */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -344,7 +341,6 @@
 				2E20E70D1874B3E60041AFE5 /* CardDeckSprite.png in Resources */,
 				2E36CCB518703B90008D4166 /* NWMMenuViewController.xib in Resources */,
 				2E36CCCB18708B1F008D4166 /* NWMHelpViewController.xib in Resources */,
-				2E550E551871CD4700F27977 /* SplashScreen.jpg in Resources */,
 				2EDF530418754E3800489EF2 /* README.md in Resources */,
 				2E36CCC118705EA8008D4166 /* NWMOptionsViewController.xib in Resources */,
 				2EDF530618755CF800489EF2 /* NWMScoreViewController.xib in Resources */,

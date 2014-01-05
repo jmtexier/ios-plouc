@@ -17,6 +17,7 @@ typedef NS_ENUM(NSUInteger, CardColor) {
     Clubs = 3,
     Special = 4
 };
++(NSString *)ColorName:(CardColor)color;
 
 typedef NS_ENUM(NSUInteger, CardValue) {
     Ace = 1,
@@ -40,6 +41,7 @@ typedef NS_ENUM(NSUInteger, CardValue) {
     Eight_Spades = 5,
     Eight_Clubs = 6
 };
++(NSString *)ValueName:(CardValue)value;
 
 +(UIImage *)getBackImage;
 +(UIImage *)getJokerImage;

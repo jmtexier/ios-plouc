@@ -9,6 +9,7 @@
                 <outlet property="antepenultimateCardImage" destination="Uah-rG-tD0" id="QMP-PG-0bk"/>
                 <outlet property="computerCard" destination="OJm-se-5Tx" id="D4P-oA-46N"/>
                 <outlet property="computerLabel" destination="8tM-aq-6SM" id="YWv-Vn-9sT"/>
+                <outlet property="eightColorImage" destination="eAR-Gb-RQS" id="lwQ-RZ-Xsb"/>
                 <outlet property="giveUpButton" destination="rvO-Ck-DaT" id="OCO-0H-qWa"/>
                 <outlet property="penultimateCardImage" destination="PlF-4F-leH" id="fVo-4c-goj"/>
                 <outlet property="pileButton" destination="qSl-Fz-xJA" id="eIZ-Nt-J0b"/>
@@ -41,6 +42,10 @@
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" placeholderIntrinsicWidth="56" placeholderIntrinsicHeight="74" translatesAutoresizingMaskIntoConstraints="NO" id="Uah-rG-tD0">
                     <rect key="frame" x="97" y="81" width="56" height="72"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" placeholderIntrinsicWidth="56" placeholderIntrinsicHeight="74" translatesAutoresizingMaskIntoConstraints="NO" id="eAR-Gb-RQS">
+                    <rect key="frame" x="180" y="68" width="56" height="72"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 </imageView>
                 <button opaque="NO" contentMode="center" misplaced="YES" placeholderIntrinsicWidth="56" placeholderIntrinsicHeight="74" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qSl-Fz-xJA">
@@ -131,8 +136,8 @@
                         <action selector="onGiveUp:" destination="-1" eventType="touchUpInside" id="PNA-3r-Va5"/>
                     </connections>
                 </button>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Score: 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bVR-wL-YWw">
-                    <rect key="frame" x="20" y="23" width="80" height="21"/>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Score: 12 - 9" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bVR-wL-YWw">
+                    <rect key="frame" x="20" y="23" width="92" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>

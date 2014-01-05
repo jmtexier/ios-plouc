@@ -20,6 +20,52 @@ static CGImageRef _deck;
     return _deck;
 }
 
++ (NSDictionary *)ColorNames
+{
+    return @{@(Hearts) : @"Hearts",
+             @(Diamonds) : @"Diamonds",
+             @(Spades) : @"Spades",
+             @(Clubs) : @"Clubs",
+             @(Special): @"Special" };
+}
++(NSString *)ColorName:(CardColor)color
+{
+    return [NWMCardModel ColorNames][@(color)];
+}
+
++ (NSDictionary *)ValueNames
+{
+    return @{@(Ace) : @"Ace",
+             @(Two) : @"2",
+             @(Three) : @"3",
+             @(Four) : @"4",
+             @(Five) : @"5",
+             @(Six) : @"6",
+             @(Seven) : @"7",
+             @(Eight) : @"8",
+             @(Nine) : @"9",
+             @(Ten) : @"10",
+             @(Knave) : @"Knave",
+             @(Queen) : @"Queen",
+             @(King) : @"King",
+             @(Special): @"Special" };
+}
+
++ (NSDictionary *)SpecialValueNames
+{
+    return @{@(Joker) : @"Ace",
+             @(Eight_Hearts) : @"8 of Hearts",
+             @(Eight_Diamonds) : @"8 of Diamonds",
+             @(Eight_Spades) : @"8 of Spades",
+             @(Eight_Clubs): @"8 of Clubs" };
+}
+
+
++(NSString *)ValueName:(CardValue)value
+{
+    return [NWMCardModel ValueNames][@(value)];
+}
+
 +(UIImage *)getColorImage:(CardColor)color
 {
     return [NWMCardModel getImageFromOffset:(54+color)];
@@ -52,7 +98,7 @@ static CGImageRef _deck;
 {
     // extract card from deck image (see 'CardDeckSprite.png' resource)
     // card dimensions are 112x148px with a transparent border of 1px
-    int x = 112*offset;
+    int x = 112*(int)offset;
     
     CGImageRef partOfDeck = CGImageCreateWithImageInRect(NWMCardModel.deck, CGRectMake(x, 0, 112, 148));
     UIImage *image = [UIImage imageWithCGImage:partOfDeck];
@@ -100,7 +146,7 @@ static CGImageRef _deck;
     if (card.color == Special) {
         // when an 8 has been played, we have a special color == 4 ('Special' enum value)
         // and value is then equals to Special_Heigts + true color value
-        return (self.color == (card.value - Special_Eights));
+        return (self.value == Eight || self.color == (card.value - Special_Eights));
     }
     
     // otherwise, an eight can always been stack or else you need same color or same value
@@ -116,6 +162,10 @@ static CGImageRef _deck;
             return 1;
         case Seven:
             return 0;
+            
+        // Ace is not a chainable attack but has some strength
+        case Ace:
+            return 1;
 
         default:
             return 0;
@@ -129,6 +179,10 @@ static CGImageRef _deck;
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"Card %u of %u", self.value, self.color];
+    if (self.color == Special) {
+        return [NSString stringWithFormat:@"Special %@", [NWMCardModel ValueName:self.value]];
+    }
+
+    return [NSString stringWithFormat:@"%@ of %@", [NWMCardModel ValueName:self.value], [NWMCardModel ColorName:self.color]];
 }
 @end

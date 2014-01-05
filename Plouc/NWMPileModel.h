@@ -11,7 +11,7 @@
 
 @interface NWMPileModel : NSObject
 
-@property (readonly) int cardCount;
+@property (readonly) NSUInteger cardCount;
 @property (readonly) NWMCardModel *currentCard;
 
 - (NWMCardModel *)drawCard;

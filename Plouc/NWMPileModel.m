@@ -46,7 +46,7 @@
         }
     }
 
-    NSLog(@"Pile size is %d", [self.stack count]);
+    NSLog(@"Pile size is %lu", (unsigned long)[self.stack count]);
 
     // shuffle once
     [self shuffle];
@@ -55,7 +55,7 @@
     _currentCard = current;
 }
 
-- (int)cardCount
+- (NSUInteger)cardCount
 {
     return [self.stack count];
 }
@@ -79,8 +79,8 @@
     NSUInteger count = self.cardCount;
     for (NSUInteger index = 0; index < count; ++index) {
         // select a random element between i and end of array to swap with
-        NSInteger randomSize = count - index;
-        NSInteger substitute = arc4random_uniform(randomSize) + index;
+        NSUInteger randomSize = count - index;
+        NSUInteger substitute = arc4random_uniform((uint32_t)randomSize) + index;
         [self.stack exchangeObjectAtIndex:index withObjectAtIndex:substitute];
     }
 }

@@ -11,7 +11,7 @@
 
 @interface NWMPlayerModel : NSObject
 
-@property (readonly) int cardCount;
+@property (readonly) NSUInteger cardCount;
 @property (readonly) NSMutableArray *hand;
 
 - (void)addCard:(NWMCardModel *)card;

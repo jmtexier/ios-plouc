@@ -18,6 +18,8 @@
 
 @implementation NWMOptionsViewController
 
+#pragma mark - ViewController methods
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -31,6 +33,13 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+-(BOOL)prefersStatusBarHidden
+{
+    return YES;
+}
+
+#pragma mark - Callbacks and events
 
 - (IBAction)onBackButton:(id)sender
 {

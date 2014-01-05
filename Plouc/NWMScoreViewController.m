@@ -38,6 +38,11 @@
     [NWMUIToolkit roundButtons:@[self.menuButton, self.resetButton]];
 }
 
+-(BOOL)prefersStatusBarHidden
+{
+    return YES;
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

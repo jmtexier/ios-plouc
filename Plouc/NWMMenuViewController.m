@@ -41,6 +41,11 @@
     [self.navigationController setNavigationBarHidden:YES animated:animated];
 }
 
+-(BOOL)prefersStatusBarHidden
+{
+    return YES;
+}
+
 #pragma mark - Callbacks and events
 
 - (IBAction)startNewGameButton:(id)sender {

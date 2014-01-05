@@ -13,5 +13,6 @@ A little card game to learn ios development and have fun...
 
 - Write rules ('How to Play?')
 
-- Choose a nice logo and a splashscreen
-- 
+- Enable IA difficulty levels
+
+- Add some sounds and animations
